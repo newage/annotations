@@ -2,6 +2,7 @@
 
 namespace Newage\Annotations\Mapper;
 
+use Newage\Annotations\Config\MapperBuilderConfig;
 use Zend\Stdlib\ArrayObject;
 use Zend\Config\Writer\PhpArray;
 use Zend\Config\Reader;
@@ -9,7 +10,7 @@ use Zend\Config\Reader;
 /**
  * @package Newage\Annotations\Mapper
  */
-class MapperBuilder
+class MapperBuilder implements MapperBuilderInterface
 {
     const MAPPER_NAME = 'mapping.php';
 
@@ -20,10 +21,19 @@ class MapperBuilder
     protected $buildPath;
 
     /**
-     * Configuration array
-     * @var array
+     * @var MapperBuilderConfig
      */
-    protected $config;
+    private $config;
+
+    /**
+     * MapperBuilder constructor.
+     *
+     * @param MapperBuilderConfig $config
+     */
+    public function __construct(MapperBuilderConfig $config)
+    {
+        $this->config = $config;
+    }
 
     /**
      * Generate/update mapping
@@ -31,7 +41,7 @@ class MapperBuilder
      */
     public function create(ArrayObject $spec)
     {
-        $filePath = $this->getConfig('path') . self::MAPPER_NAME;
+        $filePath = $this->config->getConfig('path') . self::MAPPER_NAME;
         $configArray = new ArrayObject();
 
         foreach ($spec['entities'] as $entity) {
@@ -44,22 +54,5 @@ class MapperBuilder
         $writer = new PhpArray();
         $writer->setUseBracketArraySyntax(true);
         $writer->toFile($filePath, $configArray);
-    }
-
-    /**
-     * @param null $name
-     * @return array
-     */
-    public function getConfig($name = null)
-    {
-        return $this->config[$name];
-    }
-
-    /**
-     * @param array $config
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
     }
 }

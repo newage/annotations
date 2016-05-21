@@ -1,42 +1,48 @@
 <?php
 
+use Newage\Annotations\Controller;
+use Newage\Annotations\Mapper;
+use Newage\Annotations\Entity\Annotation;
+use Newage\Annotations\Factory;
+use Newage\Annotations\Config;
+
 $config = [
-    'annotations' => [
-        'AnnotationBuilder' => [
-            'models' => [
-                [
-                    'path' => 'examples/Model',
-                    'namespace' => 'ExampleModel\Model'
-                ]
+    'di' => [
+        'allowed_controllers' => [
+            Controller\MapperController::class,
+        ],
+        'instance' => [
+            'preference' => [
+                Mapper\MapperBuilderInterface::class => Mapper\MapperBuilder::class,
+                Annotation\AnnotationBuilderInterface::class => Annotation\AnnotationBuilder::class,
+                \Zend\EventManager\EventManagerInterface::class => \Zend\EventManager\EventManager::class,
             ]
         ],
-        'MapperBuilder' => [
-            'path' => 'build/'
+        'definition' => [
+            'class' => [
+                Annotation\AnnotationBuilder::class => [
+                    'setEventManager' => ['required' => true],
+                    'setAnnotationParser' => ['required' => true],
+                    'setAnnotationManager' => ['required' => true],
+                ]
+            ]
         ]
     ],
-    'controllers' => [
-        'invokables' => [
-            'MapperController' => '\Newage\Annotations\Controller\MapperController'
+    'service_manager' => [
+        'factories' => [
+            Config\MapperBuilderConfig::class => Factory\MapperBuilderConfigFactory::class,
+            Config\AnnotationBuilderConfig::class => Factory\AnnotationBuilderConfigFactory::class,
         ]
     ],
     'console' => [
         'router' => [
             'routes' => [
-                'generate' => [
+                'mapper-generate' => [
                     'options' => [
                         'route'    => 'mapper generate',
                         'defaults' => [
-                            'controller' => 'MapperController',
+                            'controller' => Controller\MapperController::class,
                             'action'     => 'generate'
-                        ]
-                    ]
-                ],
-                'test' => [
-                    'options' => [
-                        'route'    => 'mapper test',
-                        'defaults' => [
-                            'controller' => 'MapperController',
-                            'action'     => 'test'
                         ]
                     ]
                 ]

@@ -1,1 +1,17 @@
 <?php
+
+return [
+    'annotations' => [
+        'AnnotationBuilder' => [
+            'models' => [
+                [
+                    'path' => 'examples/Model',
+                    'namespace' => 'Newage\Example\Model'
+                ]
+            ]
+        ],
+        'MapperBuilder' => [
+            'path' => 'build/'
+        ]
+    ],
+];

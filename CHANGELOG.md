@@ -20,9 +20,3 @@ Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) princip
 
 ### Security
 - Nothing
-
-## [0.0.1] - 2016-05-21
-
-### Added
-- Base structure for generators
-- Create simple generator

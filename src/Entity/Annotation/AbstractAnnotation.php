@@ -5,7 +5,7 @@ namespace Newage\Annotations\Entity\Annotation;
 class AbstractAnnotation
 {
     /**
-     * @var string
+     * @var mixed
      */
     protected $value;
 

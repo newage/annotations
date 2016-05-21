@@ -2,6 +2,7 @@
 
 namespace Newage\Annotations\Entity\Annotation;
 
+use Newage\Annotations\Config\AnnotationBuilderConfig;
 use Newage\Annotations\Mapper\Annotation\EntityAnnotationListener;
 use Newage\Annotations\Mapper\Annotation\PropertyAnnotationListener;
 use Newage\Annotations\Mapper\MapperBuilder;
@@ -18,7 +19,7 @@ use Zend\Stdlib\ArrayObject;
 /**
  * @package Newage\Annotations\Mapper\Annotation
  */
-class AnnotationBuilder implements EventManagerAwareInterface
+class AnnotationBuilder implements EventManagerAwareInterface, AnnotationBuilderInterface
 {
     /**
      * @var MapperBuilder
@@ -41,9 +42,9 @@ class AnnotationBuilder implements EventManagerAwareInterface
     protected $events;
 
     /**
-     * @var array
+     * @var AnnotationBuilderConfig
      */
-    protected $options;
+    private $config;
 
     /**
      * @var array Default annotations to register
@@ -59,14 +60,26 @@ class AnnotationBuilder implements EventManagerAwareInterface
     ];
 
     /**
+     * AnnotationBuilder constructor.
+     *
+     * @param AnnotationBuilderConfig $config
+     * @param MapperBuilder           $mapperBuilder
+     */
+    public function __construct(AnnotationBuilderConfig $config, MapperBuilder $mapperBuilder)
+    {
+        $this->mapperBuilder = $mapperBuilder;
+        $this->config = $config;
+    }
+
+    /**
      * Create annotations from entity
      * @return ArrayObject
      */
     public function create()
     {
         $spec = new ArrayObject(['entities' => []]);
-        $factory = $this->getMapperBuilder();
-        $modelsOptions = $this->getOptions('models');
+        $factory = $this->mapperBuilder;
+        $modelsOptions = $this->config->getConfig('models');
         foreach ($modelsOptions as $modelOption) {
             foreach (new \FilesystemIterator($modelOption['path']) as $file) {
                 $entityName = substr($file->getFileName(), 0, -4);
@@ -198,32 +211,14 @@ class AnnotationBuilder implements EventManagerAwareInterface
     }
 
     /**
-     * Get mapper builder
-     * @return MapperBuilder
-     */
-    public function getMapperBuilder()
-    {
-        if (!$this->mapperBuilder) {
-            $this->setMapperBuilder(new MapperBuilder());
-        }
-        return $this->mapperBuilder;
-    }
-
-    public function setMapperBuilder(MapperBuilder $mapperBuilder)
-    {
-        $this->mapperBuilder = $mapperBuilder;
-    }
-
-    /**
      * @return mixed
      */
     public function getAnnotationManager()
     {
-        if ($this->annotationManager) {
-            return $this->annotationManager;
+        if (null === $this->annotationManager) {
+            $this->setAnnotationManager(new AnnotationManager());
         }
 
-        $this->setAnnotationManager(new AnnotationManager());
         return $this->annotationManager;
     }
 
@@ -251,27 +246,5 @@ class AnnotationBuilder implements EventManagerAwareInterface
         }
 
         return $this->annotationParser;
-    }
-
-    /**
-     * Get one option or options array
-     * @param null $name
-     * @return array
-     */
-    public function getOptions($name = null)
-    {
-        if (isset($this->options[$name])) {
-            return $this->options[$name];
-        }
-        return $this->options;
-    }
-
-    /**
-     * Set options array
-     * @param array $options
-     */
-    public function setOptions(array $options)
-    {
-        $this->options = $options;
     }
 }

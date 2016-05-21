@@ -22,7 +22,7 @@
     "require": {
         "php": ">=5.4",
         "doctrine/common": ">=2.1",
-        "zendframework/zendframework": ">=2.2"
+        "zendframework/zendframework": ">=2.2 <2.5"
     },
     "require-dev": {
         "phpunit/phpunit": "4.8.*",
@@ -30,7 +30,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Newage\\Annotations\\": "src"
+            "Newage\\Annotations\\": "src",
+            "Newage\\Example\\": "examples"
         }
     },
     "extra": {
