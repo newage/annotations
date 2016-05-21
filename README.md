@@ -19,38 +19,18 @@ $ composer require newage/annotations
 ```
 
 ## Usage
-Add to config:
-``` php
-'generators' => [
-    'path' => '/path/to/templates/',
-    'templates' => [
-        'controller' => 'Folder/$NAME$Controller.stub',
-        'service' => [
-            'Service/$NAME$Service.stub',
-            'Service/$NAME$ServiceInterface.stub',
-        ],
-        'module => [
-            'service',
-            'controller',
-        ]
-    ],
-]
-```
-Create template file with template variables `$VARAIBLE_NAME$`.
-``` php
-<?php
 
-namespace $NAMESPACE$\Controller;
-
-class $NAME$Controller
-{
-    private $&NAME&; //lowerCase name
-}
-```
-
-Use console command
+1. Copy configuration file.
 ``` bash
-zf generate template <templateName> <destination> --namespace= --name=
+copy vendor/newage/annotations/config/annotations.global.php.dist config/autoload/annotations.global.php
+```
+2. Change a path and a namespace to your Entity for `AnnotationBuilder`.
+3. Change a path for `MapperBuilder` to generating a file of map.
+4. Add a module `Newage\Annotations` to your config.
+4. Set annotations to your Entity. You can see examples [User](User) and [Role](Role) entities.
+5. You need to start a console command:
+``` bash
+zf mapper generate
 ```
 
 ## Change log
