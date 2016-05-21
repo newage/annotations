@@ -27,7 +27,7 @@ copy vendor/newage/annotations/config/annotations.global.php.dist config/autoloa
 2. Change a path and a namespace to your Entity for `AnnotationBuilder`.
 3. Change a path for `MapperBuilder` to generating a file of map.
 4. Add a module `Newage\Annotations` to your config.
-4. Set annotations to your Entity. You can see examples [User](User) and [Role](Role) entities.
+4. Set annotations to your Entity. You can see examples [User](https://github.com/newage/annotations/wiki/User) and [Role](https://github.com/newage/annotations/wiki/Role) entities.
 5. You need to start a console command:
 ``` bash
 zf mapper generate
