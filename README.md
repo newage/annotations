@@ -20,7 +20,7 @@ $ composer require newage/annotations
 
 ## Usage
 
-1. Copy configuration file.
+1. Copy a configuration file.
 ``` bash
 copy vendor/newage/annotations/config/annotations.global.php.dist config/autoload/annotations.global.php
 ```
