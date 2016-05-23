@@ -24,7 +24,7 @@ class Module implements ConfigProviderInterface, ConsoleUsageProviderInterface
 
     public function getConfig()
     {
-        $config = require __DIR__ . '../config/module.config.php';
+        $config = require_once __DIR__ . '/../config/module.config.php';
         return $config;
     }
 }
