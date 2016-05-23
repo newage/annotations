@@ -15,7 +15,6 @@ $config = [
             'preference' => [
                 Mapper\MapperBuilderInterface::class => Mapper\MapperBuilder::class,
                 Annotation\AnnotationBuilderInterface::class => Annotation\AnnotationBuilder::class,
-                \Zend\EventManager\EventManagerInterface::class => \Zend\EventManager\EventManager::class,
             ]
         ],
         'definition' => [

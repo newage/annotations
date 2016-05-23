@@ -4,6 +4,11 @@ All Notable changes to `annotations` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [0.0.4] - 2016-05-23
+
+### Fixed
+- Remove `EventManager` from a DI config.
+
 ## [0.0.3] - 2016-05-23
 
 ### Fixed
