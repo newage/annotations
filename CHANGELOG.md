@@ -4,6 +4,15 @@ All Notable changes to `annotations` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [0.0.5] - 2016-05-31
+
+### Added
+- New annotation `ManyToMany`
+- New annotation `OneToMany`
+
+### Changed
+- Example for entities
+
 ## [0.0.4] - 2016-05-23
 
 ### Fixed

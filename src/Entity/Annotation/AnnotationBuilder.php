@@ -56,7 +56,7 @@ class AnnotationBuilder implements EventManagerAwareInterface, AnnotationBuilder
         'OneToOne',
         'OneToMany',
         'ManyToOne',
-        'ManyToMany'
+        'ManyToMany',
     ];
 
     /**
