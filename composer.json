@@ -28,8 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Newage\\Annotations\\": "src",
-            "Newage\\Example\\": "example"
+            "Newage\\Annotations\\": "src"
         }
     },
     "extra": {
