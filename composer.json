@@ -19,10 +19,10 @@
     "require": {
         "php": ">=5.4",
         "doctrine/common": ">=2.1",
-        "zendframework/zendframework": ">=2.2 <2.5"
+        "laminas/laminas-code": ">=3.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.8.*",
+        "phpunit/phpunit": "=>4",
         "scrutinizer/ocular": "~1.1",
         "squizlabs/php_codesniffer": "~2.3"
     },
