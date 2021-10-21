@@ -81,6 +81,9 @@ class AnnotationBuilder implements EventManagerAwareInterface, AnnotationBuilder
         $factory = $this->mapperBuilder;
         $modelsOptions = $this->config->getConfig('models');
         foreach ($modelsOptions as $modelOption) {
+            if (!is_readable($modelOption['path'])) {
+                continue;
+            }
             foreach (new \FilesystemIterator($modelOption['path']) as $file) {
                 $entityName = substr($file->getFileName(), 0, -4);
                 $entityNamespace = '\\' . $modelOption['namespace'] . '\\' . $entityName;
@@ -88,9 +91,12 @@ class AnnotationBuilder implements EventManagerAwareInterface, AnnotationBuilder
                 if (!class_exists($entityNamespace)) {
                     continue;
                 }
-                
-                $entity = new $entityNamespace();
-                $spec['entities'][] = $this->getSpecification($entity);
+
+                $class = new \ReflectionClass($entityNamespace);
+                if (!$class->getConstructor()) {
+                    $entity = new $entityNamespace();
+                    $spec['entities'][] = $this->getSpecification($entity);
+                }
             }
         };
         $factory->create($spec);
